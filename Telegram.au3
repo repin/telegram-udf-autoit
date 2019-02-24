@@ -83,11 +83,10 @@ EndFunc ;==>_GetMe
    Return Value(s):		Return an array with information about the messages
 #ce ===============================================================================
 Func _Polling()
-    While 1
         Sleep(1000) ;Prevent CPU Overloading
         $newUpdates = _GetUpdates()
         ConsoleWrite($newUpdates & @CRLF)
-        If Not StringInStr($newUpdates,'update_id') Then ContinueLoop
+    While StringInStr($newUpdates,'update_id')
         $msgData = __MsgDecode($newUpdates)
         $Offset = $msgData[0] + 1
         ConsoleWrite(_ArrayToString($msgData) & @CRLF)
